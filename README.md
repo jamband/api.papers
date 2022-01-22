@@ -46,6 +46,11 @@ Unit tests and feature tests:
 php artisan test -p
 ```
 
+## Related repositories
+
+- [jamband/papers-next](https://github.com/jamband/papers-next) with Next.js
+- [jamband/papers](https://github.com/jamband/papers)
+
 ## License
 
 api.papers is licensed under the MIT license.
