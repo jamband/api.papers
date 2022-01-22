@@ -1,0 +1,6 @@
+/.idea
+/vendor
+.env
+.env.backup
+.phpunit.result.cache
+database/app.db
