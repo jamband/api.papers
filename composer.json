@@ -31,7 +31,7 @@
     "post-update-cmd": [
       "@php artisan vendor:publish --tag=laravel-assets --ansi"
     ],
-    "dev": "@composer i -q && @php artisan dev:init",
+    "dev": "@composer i -q && php artisan dev:init",
     "serve": "@php -S 127.0.0.1:8000 -t public",
     "clean": "@php artisan dev:clean && rm -rf vendor"
   },
