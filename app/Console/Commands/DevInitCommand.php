@@ -36,6 +36,8 @@ class DevInitCommand extends Command
         $this->call('dev:create-user');
 
         $this->info('The development environment is ready.');
+        $this->call('dev:help');
+
         return self::SUCCESS;
     }
 
