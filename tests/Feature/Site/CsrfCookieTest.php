@@ -25,13 +25,12 @@ class CsrfCookieTest extends TestCase
         [$token, ] = $setCookie;
 
         $tokenValues = explode('; ', $token);
-        $this->assertCount(6, $tokenValues);
+        $this->assertCount(5, $tokenValues);
 
         $this->assertMatchesRegularExpression('/\AXSRF-TOKEN=eyJpdiI.+\z/', $token);
         $this->assertContains('expires='.$this->expires(), $tokenValues);
         $this->assertContains('Max-Age=7200', $tokenValues);
         $this->assertContains('path=/', $tokenValues);
-        $this->assertContains('domain=localhost', $tokenValues);
         $this->assertContains('samesite=lax', $tokenValues);
     }
 
@@ -44,7 +43,7 @@ class CsrfCookieTest extends TestCase
         [, $session] = $setCookie;
 
         $sessionValues = explode('; ', $session);
-        $this->assertCount(7, $sessionValues);
+        $this->assertCount(6, $sessionValues);
 
         $this->assertMatchesRegularExpression(
             '/\A'.str_replace('.', '', strtolower($this->appConfig->get('app.name'))).'_session=eyJpdiI.+\z/',
@@ -54,7 +53,6 @@ class CsrfCookieTest extends TestCase
         $this->assertContains('expires='.$this->expires(), $sessionValues);
         $this->assertContains('Max-Age=7200', $sessionValues);
         $this->assertContains('path=/', $sessionValues);
-        $this->assertContains('domain=localhost', $sessionValues);
         $this->assertContains('httponly', $sessionValues);
         $this->assertContains('samesite=lax', $sessionValues);
     }
