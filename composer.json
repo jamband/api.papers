@@ -1,14 +1,14 @@
 {
   "require": {
     "php": "^8.0",
-    "fruitcake/laravel-cors": "^2.0",
-    "laravel/framework": "^8.81"
+    "fruitcake/laravel-cors": "^2.1",
+    "laravel/framework": "^9.1"
   },
   "require-dev": {
     "brianium/paratest": "^6.4",
-    "fakerphp/faker": "^1.18",
+    "fakerphp/faker": "^1.19",
     "mockery/mockery": "^1.5",
-    "nunomaduro/collision": "^5.11",
+    "nunomaduro/collision": "^6.1",
     "phpunit/phpunit": "^9.5"
   },
   "autoload": {
