@@ -23,7 +23,7 @@ class UserTest extends TestCase
         $this->assertContains('remember_token', $user->getHidden());
     }
 
-    /** @see User::getEmailVerifiedAtAttribute() */
+    /** @see User::emailVerifiedAt() */
     public function testGetEmailVerifiedAttributeWithNullValue(): void
     {
         /** @var User $user */
@@ -34,7 +34,7 @@ class UserTest extends TestCase
         $this->assertNull($user->email_verified_at);
     }
 
-    /** @see User::getEmailVerifiedAtAttribute() */
+    /** @see User::emailVerifiedAt() */
     public function testGetEmailVerifiedAttribute(): void
     {
         /** @var User $user */
@@ -46,7 +46,7 @@ class UserTest extends TestCase
         );
     }
 
-    /** @see User::getCreatedAtAttribute() */
+    /** @see User::createdAt() */
     public function testGetCreatedAtAttribute(): void
     {
         /** @var User $user */
@@ -58,7 +58,7 @@ class UserTest extends TestCase
         );
     }
 
-    /** @see User::getUpdatedAtAttribute() */
+    /** @see User::updatedAt() */
     public function testGetUpdatedAtAttribute(): void
     {
         /** @var User $user */

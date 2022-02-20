@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -38,22 +39,26 @@ class User extends Authenticatable implements MustVerifyEmail
     public const UPDATED_AT_FORMAT = self::CREATED_AT_FORMAT;
     public const EMAIL_VERIFIED_AT_FORMAT = self::CREATED_AT_FORMAT;
 
-    public function getEmailVerifiedAtAttribute(mixed $value): string|null
+    public function emailVerifiedAt(): Attribute
     {
-        if (null === $value) {
-            return null;
-        }
-
-        return Carbon::parse($value)->format(self::EMAIL_VERIFIED_AT_FORMAT);
+        return new Attribute(
+            get: fn(mixed $value) => null === $value
+                ? null
+                : Carbon::parse($value)->format(self::EMAIL_VERIFIED_AT_FORMAT),
+        );
     }
 
-    public function getCreatedAtAttribute(mixed $value): string
+    public function createdAt(): Attribute
     {
-        return Carbon::parse($value)->format(self::CREATED_AT_FORMAT);
+        return new Attribute(
+            get: fn(mixed $value) => Carbon::parse($value)->format(self::CREATED_AT_FORMAT),
+        );
     }
 
-    public function getUpdatedAtAttribute(mixed $value): string
+    public function updatedAt(): Attribute
     {
-        return Carbon::parse($value)->format(self::UPDATED_AT_FORMAT);
+        return new Attribute(
+            get: fn(mixed $value) => Carbon::parse($value)->format(self::UPDATED_AT_FORMAT),
+        );
     }
 }

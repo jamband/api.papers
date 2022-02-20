@@ -15,7 +15,7 @@ class PaperTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @see Paper::getCreatedAtAttribute() */
+    /** @see Paper::createdAt() */
     public function testGetCreatedAtAttribute(): void
     {
         User::factory()->create();
@@ -29,7 +29,7 @@ class PaperTest extends TestCase
         );
     }
 
-    /** @see Paper::getUpdatedAtAttribute() */
+    /** @see Paper::updatedAt() */
     public function testGetUpdatedAtAttribute(): void
     {
         User::factory()->create();

@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,13 +28,17 @@ class Paper extends Model
     public const CREATED_AT_FORMAT = 'M jS Y, g:i a';
     public const UPDATED_AT_FORMAT = self::CREATED_AT_FORMAT;
 
-    public function getCreatedAtAttribute(mixed $value): string
+    public function createdAt(): Attribute
     {
-        return Carbon::parse($value)->format(self::CREATED_AT_FORMAT);
+        return new Attribute(
+            get: fn(mixed $value) => Carbon::parse($value)->format(self::CREATED_AT_FORMAT),
+        );
     }
 
-    public function getUpdatedAtAttribute(mixed $value): string
+    public function updatedAt(): Attribute
     {
-        return Carbon::parse($value)->format(self::UPDATED_AT_FORMAT);
+        return new Attribute(
+            get: fn(mixed $value) => Carbon::parse($value)->format(self::UPDATED_AT_FORMAT),
+        );
     }
 }
