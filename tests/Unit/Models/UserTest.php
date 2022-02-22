@@ -24,7 +24,7 @@ class UserTest extends TestCase
     }
 
     /** @see User::emailVerifiedAt() */
-    public function testGetEmailVerifiedAttributeWithNullValue(): void
+    public function testEmailVerifiedAtWithNullValue(): void
     {
         /** @var User $user */
         $user = User::factory()->create([
@@ -35,7 +35,7 @@ class UserTest extends TestCase
     }
 
     /** @see User::emailVerifiedAt() */
-    public function testGetEmailVerifiedAttribute(): void
+    public function testEmailVerifiedAt(): void
     {
         /** @var User $user */
         $user = User::factory()->create();
@@ -47,7 +47,7 @@ class UserTest extends TestCase
     }
 
     /** @see User::createdAt() */
-    public function testGetCreatedAtAttribute(): void
+    public function testCreatedAt(): void
     {
         /** @var User $user */
         $user = User::factory()->create();
@@ -59,7 +59,7 @@ class UserTest extends TestCase
     }
 
     /** @see User::updatedAt() */
-    public function testGetUpdatedAtAttribute(): void
+    public function testUpdatedAt(): void
     {
         /** @var User $user */
         $user = User::factory()->create();
