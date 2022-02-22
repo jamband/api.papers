@@ -69,7 +69,6 @@ class LoginRequest extends FormRequest
                 ]),
             ]);
         }
-
     }
 
     private function throttleKey(): string
