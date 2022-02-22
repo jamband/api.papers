@@ -42,7 +42,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function emailVerifiedAt(): Attribute
     {
         return new Attribute(
-            get: fn(mixed $value) => null === $value
+            get: fn(mixed $value): string|null => null === $value
                 ? null
                 : Carbon::parse($value)->format(self::EMAIL_VERIFIED_AT_FORMAT),
         );
@@ -51,14 +51,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function createdAt(): Attribute
     {
         return new Attribute(
-            get: fn(mixed $value) => Carbon::parse($value)->format(self::CREATED_AT_FORMAT),
+            get: fn(mixed $value): string => Carbon::parse($value)->format(self::CREATED_AT_FORMAT),
         );
     }
 
     public function updatedAt(): Attribute
     {
         return new Attribute(
-            get: fn(mixed $value) => Carbon::parse($value)->format(self::UPDATED_AT_FORMAT),
+            get: fn(mixed $value): string => Carbon::parse($value)->format(self::UPDATED_AT_FORMAT),
         );
     }
 }
