@@ -17,7 +17,6 @@ class DevHelpCommand extends Command
         $this->table(['Requirements'], [
             ['PHP', '>= 8.0'],
             ['Composer', '2.x'],
-            ['Laravel', '9.x'],
             ['SQLite', '3'],
             ['MailHog', 'https://github.com/mailhog/MailHog'],
         ]);
