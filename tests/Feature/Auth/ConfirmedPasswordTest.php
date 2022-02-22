@@ -24,7 +24,7 @@ class ConfirmedPasswordTest extends TestCase
             ->assertExactJson($data);
     }
 
-    public function testFoo(): void
+    public function testConfirmedPassword(): void
     {
         /** @var User $user */
         $user = User::factory()->create();
