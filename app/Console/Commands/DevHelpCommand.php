@@ -25,7 +25,7 @@ class DevHelpCommand extends Command
             ['composer run serve'],
             ['php artisan dev:help'],
             ['php artisan route:list'],
-            ['php artisan test -p'],
+            ['php artisan test'],
         ]);
 
         $this->warn("\nNote that MailHog needs to be running for some action.\n".
