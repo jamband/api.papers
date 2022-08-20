@@ -9,7 +9,6 @@ use App\Http\Resources\PaperResource;
 use App\Models\Paper;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 /** @see CreatePaper */
@@ -28,7 +27,7 @@ class CreatePaperTest extends TestCase
 
         $this->actingAs($user)
             ->postJson('/papers')
-            ->assertStatus(Response::HTTP_CONFLICT)
+            ->assertStatus(409)
             ->assertExactJson($data);
     }
 

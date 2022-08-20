@@ -11,7 +11,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 /** @see Register */
@@ -26,7 +25,7 @@ class RegisterTest extends TestCase
 
         $this->actingAs($user)
             ->postJson('/register')
-            ->assertStatus(Response::HTTP_BAD_REQUEST);
+            ->assertStatus(400);
     }
 
     public function testRequiredRuleValidation(): void

@@ -29,14 +29,14 @@ class Handler extends ExceptionHandler
             return response($data, $e->getStatusCode());
         }
 
-        if ($e instanceof ModelNotFoundException) {
-            $data = ['message' => 'Model Not Found.'];
-            return response($data, Response::HTTP_NOT_FOUND);
-        }
-
         if ($e instanceof NotFoundHttpException) {
             $data = ['message' => 'Not Found.'];
-            return response($data, Response::HTTP_NOT_FOUND);
+            return response($data, $e->getStatusCode());
+        }
+
+        if ($e instanceof ModelNotFoundException) {
+            $data = ['message' => 'Model Not Found.'];
+            return response($data, 404);
         }
 
         if ($e instanceof ValidationException) {
@@ -46,7 +46,7 @@ class Handler extends ExceptionHandler
             }
             $data['errors'] = $errors;
 
-            return response($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response($data, 422);
         }
 
         return parent::render($request, $e);

@@ -7,7 +7,6 @@ namespace Tests\Feature\Auth;
 use App\Http\Controllers\Auth\ConfirmedPassword;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 /** @see ConfirmedPassword */
@@ -20,7 +19,7 @@ class ConfirmedPasswordTest extends TestCase
         $data['message'] = 'Password confirmation required.';
 
         $this->getJson('/confirmed-password')
-            ->assertStatus(Response::HTTP_LOCKED)
+            ->assertStatus(423)
             ->assertExactJson($data);
     }
 

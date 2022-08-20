@@ -7,7 +7,6 @@ namespace Tests\Feature\Auth;
 use App\Http\Controllers\Auth\ConfirmPassword;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 /** @see ConfirmPassword */
@@ -32,7 +31,7 @@ class ConfirmPasswordTest extends TestCase
 
         $this->actingAs($user)
             ->postJson(route('password.confirm'))
-            ->assertStatus(Response::HTTP_CONFLICT)
+            ->assertStatus(409)
             ->assertExactJson($data);
     }
 

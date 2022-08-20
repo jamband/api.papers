@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Middleware\ThrottleRequests;
-use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
 class EmailVerificationNotification extends Controller
 {
@@ -30,7 +29,7 @@ class EmailVerificationNotification extends Controller
 
         if ($user->hasVerifiedEmail()) {
             $data['message'] = 'Your already has verified by email.';
-            return response($data, BaseResponse::HTTP_BAD_REQUEST);
+            return response($data, 400);
         }
 
         $user->sendEmailVerificationNotification();

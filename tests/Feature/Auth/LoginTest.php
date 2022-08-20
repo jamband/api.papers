@@ -7,7 +7,6 @@ namespace Tests\Feature\Auth;
 use App\Http\Controllers\Auth\Login;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 /** @see Login */
@@ -24,7 +23,7 @@ class LoginTest extends TestCase
 
         $this->actingAs($user)
             ->postJson('/login')
-            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertStatus(400)
             ->assertExactJson($data);
 
         $this->assertAuthenticated();

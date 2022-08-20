@@ -7,7 +7,6 @@ namespace Tests\Feature\Auth;
 use App\Http\Controllers\Auth\DeleteAccount;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 /** @see DeleteAccount */
@@ -26,7 +25,7 @@ class DeleteAccountTest extends TestCase
 
         $this->actingAs($user)
             ->postJson('/delete-account')
-            ->assertStatus(Response::HTTP_CONFLICT)
+            ->assertStatus(409)
             ->assertExactJson($data);
     }
 
@@ -35,7 +34,7 @@ class DeleteAccountTest extends TestCase
         $data['message'] = 'Unauthenticated.';
 
         $this->postJson('/delete-account')
-            ->assertStatus(Response::HTTP_UNAUTHORIZED)
+            ->assertUnauthorized()
             ->assertExactJson($data);
     }
 
@@ -48,7 +47,7 @@ class DeleteAccountTest extends TestCase
 
         $this->actingAs($user)
             ->postJson('/delete-account')
-            ->assertStatus(Response::HTTP_LOCKED)
+            ->assertStatus(423)
             ->assertExactJson($data);
     }
 

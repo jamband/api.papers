@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Tests\Feature\Paper;
 
 use App\Http\Controllers\Paper\GetPapers;
-use App\Http\Resources\PaperCollection;
 use App\Http\Resources\PaperResource;
 use App\Models\Paper;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 /** @see GetPapers */
@@ -30,7 +28,7 @@ class GetPapersTest extends TestCase
 
         $this->actingAs($user)
             ->getJson('/papers')
-            ->assertStatus(Response::HTTP_CONFLICT)
+            ->assertStatus(409)
             ->assertExactJson($data);
     }
 

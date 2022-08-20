@@ -8,9 +8,7 @@ use App\Http\Controllers\Paper\UpdatePaper;
 use App\Http\Resources\PaperResource;
 use App\Models\Paper;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 /** @see UpdatePaper */
@@ -29,7 +27,7 @@ class UpdatePaperTest extends TestCase
 
         $this->actingAs($user)
             ->putJson('/papers/1')
-            ->assertStatus(Response::HTTP_CONFLICT)
+            ->assertStatus(409)
             ->assertExactJson($data);
     }
 

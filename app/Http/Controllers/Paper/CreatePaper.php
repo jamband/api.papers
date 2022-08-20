@@ -10,7 +10,6 @@ use App\Models\Paper;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
-use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
 class CreatePaper extends Controller
 {
@@ -24,7 +23,7 @@ class CreatePaper extends Controller
         $paper->body = $data['body'];
         $paper->save();
 
-        return response(new PaperResource($paper), BaseResponse::HTTP_CREATED)
+        return response(new PaperResource($paper), 201)
             ->header('Location', URL::to('/papers/'.$paper->id));
     }
 }

@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Auth\ResetPassword */
@@ -25,7 +24,7 @@ class ResetPasswordTest extends TestCase
 
         $this->actingAs($user)
             ->postJson(route('password.update'))
-            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertStatus(400)
             ->assertExactJson($data);
     }
 

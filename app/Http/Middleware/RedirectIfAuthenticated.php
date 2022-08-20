@@ -7,7 +7,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 
 class RedirectIfAuthenticated
 {
@@ -19,7 +18,8 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 if ($request->acceptsJson()) {
                     $data['message'] = 'Bad Request.';
-                    return response($data, Response::HTTP_BAD_REQUEST);
+
+                    return response($data, 400);
                 }
 
                 return redirect('/');

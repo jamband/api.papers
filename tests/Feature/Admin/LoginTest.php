@@ -7,7 +7,6 @@ namespace Tests\Feature\Admin;
 use App\Http\Controllers\Admin\Login;
 use App\Models\AdminUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 /** @see Login */
@@ -24,7 +23,7 @@ class LoginTest extends TestCase
 
         $this->actingAs($adminUser, 'admin')
             ->postJson('/admin/login')
-            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertStatus(400)
             ->assertExactJson($data);
 
         $this->assertAuthenticated('admin');

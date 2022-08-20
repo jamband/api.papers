@@ -8,7 +8,6 @@ use App\Http\Controllers\Paper\DeletePaper;
 use App\Models\Paper;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 /** @see DeletePaper */
@@ -27,7 +26,7 @@ class DeletePaperTest extends TestCase
 
         $this->actingAs($user)
             ->deleteJson('/papers/1')
-            ->assertStatus(Response::HTTP_CONFLICT)
+            ->assertStatus(409)
             ->assertExactJson($data);
     }
 
