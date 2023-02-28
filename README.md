@@ -4,8 +4,8 @@ api.papers is a project created as a document for cookie-based session authentic
 
 ## Requirements for development environment
 
-- PHP >= 8.0
-- Composer 2.x
+- PHP >= 8.1
+- Composer >= 2.2.0
 - SQLite 3
 - [MailHog](https://github.com/mailhog/MailHog)
 
