@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Process\Process;
+use Illuminate\Process\PendingProcess;
 
 class DevCleanCommand extends Command
 {
@@ -20,12 +20,13 @@ class DevCleanCommand extends Command
         'storage/framework/sessions/*',
     ];
 
-    public function handle(): int
+    public function handle(
+        PendingProcess $process,
+    ): int
     {
         $this->call('optimize:clear');
 
-        $command = 'rm -rf '.implode(' ', self::FILES);
-        Process::fromShellCommandline($command)->run();
+        $process->run('rm -rf '.implode(' ', self::FILES));
 
         $this->info('Clean up completed.');
         return self::SUCCESS;
