@@ -28,7 +28,7 @@ class DevHelpCommand extends Command
             ['php artisan test'],
         ]);
 
-        $this->warn("\nNote that MailHog needs to be running for some action.\n".
+        $this->warn("\nNote that Mailpit needs to be running for some action.\n".
                     'e.g. such as register action, forgot password action.');
 
         return self::SUCCESS;
