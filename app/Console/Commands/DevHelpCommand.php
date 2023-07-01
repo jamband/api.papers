@@ -18,7 +18,7 @@ class DevHelpCommand extends Command
             ['PHP', '>= 8.1'],
             ['Composer', '>= 2.2.0'],
             ['SQLite', '3'],
-            ['MailHog', 'https://github.com/mailhog/MailHog'],
+            ['Mailpit', 'https://github.com/axllent/mailpit'],
         ]);
 
         $this->table(['Command examples'], [
