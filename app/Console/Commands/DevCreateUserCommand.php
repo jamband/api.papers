@@ -15,7 +15,8 @@ class DevCreateUserCommand extends Command
     protected $description = 'Create new user';
 
     private const USER_NAME = 'foo';
-    private const USER_EMAIL = 'foo@example.com';
+    private const USER_EMAIL = self::USER_NAME.'@example.com';
+    private const USER_PASSWORD = self::USER_NAME.self::USER_NAME.self::USER_NAME;
 
     public function handle(): int
     {
@@ -26,7 +27,7 @@ class DevCreateUserCommand extends Command
 
         $this->createNewUser();
 
-        $this->info('New user has been created.');
+        $this->info('New user has been created. '.$this->accountInformation());
         return self::SUCCESS;
     }
 
@@ -41,7 +42,19 @@ class DevCreateUserCommand extends Command
         $user->name = self::USER_NAME;
         $user->email = self::USER_EMAIL;
         $user->email_verified_at = new Carbon;
-        $user->password = Hash::make(str_repeat(self::USER_NAME, 3));
+        $user->password = Hash::make(self::USER_PASSWORD);
         $user->save();
+    }
+
+    private function accountInformation(): string
+    {
+        $format = '(name: %s, email: %s, password: %s)';
+
+        return sprintf(
+            $format,
+            self::USER_NAME,
+            self::USER_EMAIL,
+            self::USER_PASSWORD
+        );
     }
 }

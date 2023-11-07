@@ -14,7 +14,9 @@ class DevCreateAdminUserCommand extends Command
     protected $signature = 'dev:create-admin-user';
     protected $description = 'Create an admin user';
 
-    private const ADMIN_USER_EMAIL = 'admin@example.com';
+    private const ADMIN_USER_NAME = 'admin';
+    private const ADMIN_USER_EMAIL = self::ADMIN_USER_NAME.'@example.com';
+    private const ADMIN_USER_PASSWORD = self::ADMIN_USER_NAME.self::ADMIN_USER_NAME;
 
     public function handle(): int
     {
@@ -25,7 +27,7 @@ class DevCreateAdminUserCommand extends Command
 
         $this->createAdminUser();
 
-        $this->info('An admin user has been created.');
+        $this->info('An admin user has been created. '.$this->accountInformation());
         return self::SUCCESS;
     }
 
@@ -39,10 +41,22 @@ class DevCreateAdminUserCommand extends Command
     private function createAdminUser(): void
     {
         $adminUser = new AdminUser;
-        $adminUser->name = 'admin';
+        $adminUser->name = self::ADMIN_USER_NAME;
         $adminUser->email = self::ADMIN_USER_EMAIL;
         $adminUser->email_verified_at = new Carbon;
-        $adminUser->password = Hash::make(str_repeat($adminUser->name, 2));
+        $adminUser->password = Hash::make(self::ADMIN_USER_PASSWORD);
         $adminUser->save();
+    }
+
+    private function accountInformation(): string
+    {
+        $format = '(name: %s, email: %s, password: %s)';
+
+        return sprintf(
+            $format,
+            self::ADMIN_USER_NAME,
+            self::ADMIN_USER_EMAIL,
+            self::ADMIN_USER_PASSWORD
+        );
     }
 }
