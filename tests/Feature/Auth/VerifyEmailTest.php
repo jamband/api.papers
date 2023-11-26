@@ -19,7 +19,7 @@ class VerifyEmailTest extends TestCase
     public function testAuthMiddleware(): void
     {
         $this->get(route('verification.verify', ['id' => 1, 'hash' => 'hash']))
-            ->assertRedirect('/');
+            ->assertUnauthorized();
     }
 
     public function testSignedMiddleware(): void
