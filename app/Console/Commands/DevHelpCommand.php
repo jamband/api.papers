@@ -15,7 +15,7 @@ class DevHelpCommand extends Command
     public function handle(): int
     {
         $this->table(['Requirements'], [
-            ['PHP', '>= 8.1'],
+            ['PHP', '>= 8.2'],
             ['Composer', '>= 2.2.0'],
             ['SQLite', '3'],
             ['Mailpit', 'https://github.com/axllent/mailpit'],
