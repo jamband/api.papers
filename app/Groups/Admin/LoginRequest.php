@@ -1,0 +1,90 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Groups\Admin;
+
+use Illuminate\Auth\AuthManager;
+use Illuminate\Auth\Events\Lockout;
+use Illuminate\Cache\RateLimiter;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+
+class LoginRequest extends FormRequest
+{
+    private const MAX_ATTEMPTS = 3;
+
+    private AuthManager $auth;
+    private RateLimiter $rateLimiter;
+    private Dispatcher $event;
+
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(
+        AuthManager $auth,
+        RateLimiter $rateLimiter,
+        Dispatcher $event,
+    ): array {
+        $this->auth = $auth;
+        $this->rateLimiter = $rateLimiter;
+        $this->event = $event;
+
+        return [
+            'email' => [
+                'required',
+                'string',
+                'email',
+            ],
+            'password' => [
+                'required',
+                'string',
+            ],
+        ];
+    }
+
+    public function authenticate(): void
+    {
+        $this->ensureIsNotRateLimited();
+
+        if (!$this->auth->guard('admin')->attempt(
+            $this->validated(),
+            $this->boolean('remember')
+        )) {
+            $this->rateLimiter->hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
+        }
+
+        $this->rateLimiter->clear($this->throttleKey());
+    }
+
+    private function ensureIsNotRateLimited(): void
+    {
+        if ($this->rateLimiter->tooManyAttempts(
+            $this->throttleKey(),
+            self::MAX_ATTEMPTS
+        )) {
+            $this->event->dispatch(new Lockout($this));
+            $seconds = $this->rateLimiter->availableIn($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'email' => __('auth.throttle', [
+                    'seconds' => $seconds,
+                    'minutes' => ceil($seconds / 60),
+                ]),
+            ]);
+        }
+    }
+
+    private function throttleKey(): string
+    {
+        return Str::lower($this->input('email')).'|'.$this->ip();
+    }
+}

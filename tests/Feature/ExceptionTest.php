@@ -10,10 +10,8 @@ class ExceptionTest extends TestCase
 {
     public function testNotFound(): void
     {
-        $data['message'] = 'Not Found.';
-
-        $this->getJson('/')
+        $this->get('/')
             ->assertNotFound()
-            ->assertExactJson($data);
+            ->assertExactJson(['message' => 'Not Found.']);
     }
 }

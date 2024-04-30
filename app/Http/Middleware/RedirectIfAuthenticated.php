@@ -5,24 +5,33 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Redirector;
+use Illuminate\Routing\ResponseFactory;
 
-class RedirectIfAuthenticated
+readonly class RedirectIfAuthenticated
 {
+    public function __construct(
+        private AuthManager $auth,
+        private ResponseFactory $response,
+        private Redirector $redirect,
+    ) {
+    }
+
     public function handle(Request $request, Closure $next, ...$guards): mixed
     {
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
+            if ($this->auth->guard($guard)->check()) {
                 if ($request->acceptsJson()) {
                     $data['message'] = 'Bad Request.';
 
-                    return response($data, 400);
+                    return $this->response->make($data, 400);
                 }
 
-                return redirect('/');
+                return $this->redirect->to('/');
             }
         }
 

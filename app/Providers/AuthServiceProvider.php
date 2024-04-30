@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Config\Repository;
+use Illuminate\Container\Container;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Config;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         ResetPassword::createUrlUsing(function ($notifiable, $token) {
-            return Config::get('app.frontend_origin').'/password-reset/'.$token.'?email='.
+            /** @var Repository $config */
+            $config = Container::getInstance()->make(Repository::class);
+
+            return $config->get('app.frontend_origin').'/password-reset/'.$token.'?email='.
                 $notifiable->getEmailForPasswordReset();
         });
     }

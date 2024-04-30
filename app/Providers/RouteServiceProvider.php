@@ -4,22 +4,25 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\RouteRegistrar;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public function map(Filesystem $file): void
+    public function map(RouteRegistrar $router): void
     {
-        foreach ($file->files(base_path('routes/web')) as $file) {
-            if ('php' === $file->getExtension()) {
-                $group = $file->getBasename('.php');
+        $groups = [
+            'Admin',
+            'Auth',
+            'Users',
+            'Papers',
+            'Site',
+        ];
 
-                Route::prefix($group === 'site' || $group === 'auth' ? '' : $group)
-                    ->middleware('web')
-                    ->group($file->getPathname());
-            }
+        foreach ($groups as $group) {
+            $router->middleware('web')->group(
+                $this->app->basePath('app/Groups/'.$group.'/_routes.php')
+            );
         }
     }
 }
