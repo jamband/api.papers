@@ -25,7 +25,7 @@
       "@php artisan package:discover --ansi"
     ],
     "post-update-cmd": [
-      "@php artisan vendor:publish --tag=laravel-assets --ansi"
+      "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
     ],
     "dev": "@composer i -q && php artisan dev:init",
     "serve": "@php -S localhost:8000 -t public",
@@ -39,7 +39,10 @@
   "config": {
     "optimize-autoloader": true,
     "process-timeout": 0,
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
   },
   "minimum-stability": "stable",
   "prefer-stable": true

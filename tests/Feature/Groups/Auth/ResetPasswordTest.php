@@ -31,7 +31,7 @@ class ResetPasswordTest extends TestCase
         $this->actingAs($this->userFactory->makeOne())
             ->post($this->url->route('password.update'))
             ->assertStatus(400)
-            ->assertExactJson(['message' => 'Bad Request.']);
+            ->assertExactJson(['message' => 'Already authenticated.']);
     }
 
     public function testResetPasswordFails(): void

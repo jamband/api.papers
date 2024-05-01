@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Groups\Auth;
 
-use App\Exceptions\Handler;
 use App\Groups\Admin\AdminUserFactory;
 use App\Groups\Auth\AuthResource;
 use App\Groups\Users\UserFactory;
@@ -28,11 +27,11 @@ class GetUserTest extends TestCase
 
     public function testAuthMiddleware(): void
     {
-        /** @see Handler */
+        /** @see bootstrap/app.php */
         $this->get('/user')
             ->assertNoContent();
 
-//        $this->getJson('/user')
+//        $this->get('/user')
 //            ->assertUnauthorized()
 //            ->assertExactJson(['message' => 'Unauthenticated.']);
 

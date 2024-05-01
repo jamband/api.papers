@@ -26,7 +26,7 @@ class ConfirmPasswordTest extends TestCase
 
     public function testAuthMiddleware(): void
     {
-        $this->postJson($this->url->route('password.confirm'))
+        $this->post($this->url->route('password.confirm'))
             ->assertUnauthorized();
     }
 

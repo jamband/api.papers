@@ -33,7 +33,7 @@ class ResetPasswordRulesTest extends TestCase
 
     public function testTokenRequiredRule(): void
     {
-        $this->request(['token' => ''])
+        $this->request(['token' => null])
             ->assertJsonPath('errors.token', __('validation.required', [
                 'attribute' => 'token',
             ]));
@@ -49,7 +49,7 @@ class ResetPasswordRulesTest extends TestCase
 
     public function testEmailRequiredRule(): void
     {
-        $this->request(['email' => ''])
+        $this->request(['email' => null])
             ->assertJsonPath('errors.email', __('validation.required', [
                 'attribute' => 'email',
             ]));
@@ -73,7 +73,7 @@ class ResetPasswordRulesTest extends TestCase
 
     public function testPasswordRequiredRule(): void
     {
-        $this->request(['password' => ''])
+        $this->request(['password' => null])
             ->assertJsonPath('errors.password', __('validation.required', [
                 'attribute' => 'password',
             ]));

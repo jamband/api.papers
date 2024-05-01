@@ -28,7 +28,7 @@ class RegisterRulesTest extends TestCase
     /**
      * @param array<string, mixed> $data
      */
-    protected function request(array $data = []): TestResponse
+    protected function request(array $data): TestResponse
     {
         return $this->post('/register', $data)
             ->assertUnprocessable();
@@ -36,7 +36,7 @@ class RegisterRulesTest extends TestCase
 
     public function testNameRequiredRule(): void
     {
-        $this->request()
+        $this->request(['name' => null])
             ->assertJsonPath('errors.name', __('validation.required', [
                 'attribute' => 'name',
             ]));
@@ -70,7 +70,7 @@ class RegisterRulesTest extends TestCase
 
     public function testEmailRequiredRule(): void
     {
-        $this->request()
+        $this->request(['email' => null])
             ->assertJsonPath('errors.email', __('validation.required', [
                 'attribute' => 'email',
             ]));
@@ -114,7 +114,7 @@ class RegisterRulesTest extends TestCase
 
     public function testPasswordRequiredRule(): void
     {
-        $this->request()
+        $this->request(['password' => null])
             ->assertJsonPath('errors.password', __('validation.required', [
                 'attribute' => 'password',
             ]));

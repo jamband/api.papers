@@ -26,7 +26,7 @@ class LoginTest extends TestCase
         $this->actingAs($this->adminUserFactory->makeOne(), 'admin')
             ->post('/admin/login')
             ->assertStatus(400)
-            ->assertExactJson(['message' => 'Bad Request.']);
+            ->assertExactJson(['message' => 'Already authenticated.']);
 
         $this->assertAuthenticated('admin');
     }

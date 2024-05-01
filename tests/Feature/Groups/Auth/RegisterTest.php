@@ -40,7 +40,7 @@ class RegisterTest extends TestCase
         $this->actingAs($this->userFactory->makeOne())
             ->post('/register')
             ->assertStatus(400)
-            ->assertExactJson(['message' => 'Bad Request.']);
+            ->assertExactJson(['message' => 'Already authenticated.']);
     }
 
     public function testRegisterFails(): void

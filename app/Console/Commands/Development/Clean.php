@@ -18,7 +18,6 @@ class Clean extends Command
         '.phpunit.result.cache',
         'database/app.db',
         'storage/logs/*',
-        'storage/framework/sessions/*',
     ];
 
     public function handle(

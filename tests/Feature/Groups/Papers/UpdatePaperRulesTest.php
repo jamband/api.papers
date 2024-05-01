@@ -44,7 +44,7 @@ class UpdatePaperRulesTest extends TestCase
 
     public function testTitleRequiredRule(): void
     {
-        $this->request(['title' => ''])
+        $this->request(['title' => null])
             ->assertJsonPath('errors.title', __('validation.required', [
                 'attribute' => 'title',
             ]));
@@ -69,7 +69,7 @@ class UpdatePaperRulesTest extends TestCase
 
     public function testBodyRequiredRule(): void
     {
-        $this->request(['body' => ''])
+        $this->request(['body' => null])
             ->assertJsonPath('errors.body', __('validation.required', [
                 'attribute' => 'body',
             ]));

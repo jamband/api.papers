@@ -49,7 +49,7 @@ class GetPaperTest extends TestCase
         $this->actingAs($this->userFactory->createOne())
             ->get('/papers/1')
             ->assertNotFound()
-            ->assertExactJson(['message' => 'Model Not Found.']);
+            ->assertExactJson(['message' => 'Not Found.']);
     }
 
     public function testNotFoundDifferentUsers(): void
@@ -66,7 +66,7 @@ class GetPaperTest extends TestCase
         $this->actingAs($user)
             ->get('/papers/'.$papers[0]->id)
             ->assertNotFound()
-            ->assertExactJson(['message' => 'Model Not Found.']);
+            ->assertExactJson(['message' => 'Not Found.']);
     }
 
     public function testGetPaper(): void

@@ -22,7 +22,7 @@ class ForgotPasswordRulesTest extends TestCase
     /**
      * @param array<string, mixed> $data
      */
-    protected function request(array $data = []): TestResponse
+    protected function request(array $data): TestResponse
     {
         return $this->post($this->url->route('password.forgot'), $data)
             ->assertUnprocessable();
@@ -30,7 +30,7 @@ class ForgotPasswordRulesTest extends TestCase
 
     public function testEmailRequiredRule(): void
     {
-        $this->request()
+        $this->request(['email' => null])
             ->assertJsonPath('errors.email', __('validation.required', [
                 'attribute' => 'email',
             ]));

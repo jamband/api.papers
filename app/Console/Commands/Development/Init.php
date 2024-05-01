@@ -20,7 +20,7 @@ class Init extends Command
         Repository $config,
     ): int {
         $file->copy('.env.example', '.env');
-        $file->put(database_path('app.db'), '');
+        $file->put($this->laravel->databasePath('app.db'), '');
 
         $envFilename = $this->laravel->environmentFilePath();
         $appKey = 'base64:'.base64_encode(Encrypter::generateKey($config->get('app.cipher')));

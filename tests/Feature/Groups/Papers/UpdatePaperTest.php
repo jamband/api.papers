@@ -61,7 +61,7 @@ class UpdatePaperTest extends TestCase
                 'body' => 'updated_body',
             ])
             ->assertNotFound()
-            ->assertExactJson(['message' => 'Model Not Found.']);
+            ->assertExactJson(['message' => 'Not Found.']);
     }
 
     public function testUpdatePaper(): void

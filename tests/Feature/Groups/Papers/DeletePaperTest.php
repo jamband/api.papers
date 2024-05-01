@@ -50,7 +50,7 @@ class DeletePaperTest extends TestCase
         $this->actingAs($this->userFactory->createOne())
             ->delete('/papers/1')
             ->assertNotFound()
-            ->assertExactJson(['message' => 'Model Not Found.']);
+            ->assertExactJson(['message' => 'Not Found.']);
     }
 
     public function testDeletePaper(): void
