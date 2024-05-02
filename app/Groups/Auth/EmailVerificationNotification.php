@@ -25,13 +25,14 @@ class EmailVerificationNotification extends Controller
         $user = $request->user();
 
         if ($user->hasVerifiedEmail()) {
-            $data['message'] = 'Your already has verified by email.';
-            return $this->response->make($data, 400);
+            return $this->response->make(
+                ['message' => 'Your already has verified by email.'],
+                400,
+            );
         }
 
         $user->sendEmailVerificationNotification();
-        $data['status'] = 'verification-link-sent';
 
-        return $this->response->make($data);
+        return $this->response->make(['status' => 'verification-link-sent']);
     }
 }

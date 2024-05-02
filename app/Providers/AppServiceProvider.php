@@ -12,21 +12,20 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    private Repository $config;
 
     public function register(): void
     {
-        $this->config = $this->app->make(Repository::class);
     }
 
-    public function boot(): void
-    {
+    public function boot(
+        Repository $config,
+    ): void {
         Model::shouldBeStrict(!$this->app->isProduction());
 
         JsonResource::withoutWrapping();
 
-        ResetPassword::createUrlUsing(function ($notifiable, $token) {
-            return $this->config->get('app.frontend_origin').'/password-reset/'.$token.'?email='.
+        ResetPassword::createUrlUsing(function ($notifiable, $token) use ($config) {
+            return $config->get('app.frontend_origin').'/password-reset/'.$token.'?email='.
                 $notifiable->getEmailForPasswordReset();
         });
     }

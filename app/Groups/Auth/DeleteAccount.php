@@ -29,6 +29,7 @@ class DeleteAccount extends Controller
         $user = $request->user();
 
         $this->auth->guard('web')->logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

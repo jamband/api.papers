@@ -25,8 +25,8 @@ readonly class EnsureNotAuthenticated
         foreach ($guards as $guard) {
             if ($this->auth->guard($guard)->check()) {
                 return $this->response->make(
-                    content: ['message' => 'Already authenticated.'],
-                    status: 400,
+                    ['message' => 'Already authenticated.'],
+                    400,
                 );
             }
         }

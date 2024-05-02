@@ -8,7 +8,6 @@ use App\Http\Middleware\ForceJsonResponse;
 use App\Http\Middleware\TrustHosts;
 use App\Http\Middleware\TrustProxies;
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Container\Container;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Application;
@@ -34,9 +33,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         using: function () {
             /** @var Application $app */
-            $app = Container::getInstance()->make(Application::class);
+            $app = Application::getInstance()->make(Application::class);
             /** @var RouteRegistrar $router */
-            $router = Container::getInstance()->make(RouteRegistrar::class);
+            $router = Application::getInstance()->make(RouteRegistrar::class);
 
             $groups = [
                 'Admin',
@@ -80,7 +79,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (Throwable $e, Request $request) {
             /** @var ResponseFactory $response */
-            $response = Container::getInstance()->make(ResponseFactory::class);
+            $response = Application::getInstance()->make(ResponseFactory::class);
 
             if (
                 $e instanceof AuthenticationException &&
@@ -91,22 +90,22 @@ return Application::configure(basePath: dirname(__DIR__))
 
             if ($e instanceof InvalidSignatureException) {
                 return $response->make(
-                    content: ['message' => $e->getMessage()],
-                    status: $e->getStatusCode(),
+                    ['message' => $e->getMessage()],
+                    $e->getStatusCode(),
                 );
             }
 
             if ($e instanceof NotFoundHttpException) {
                 return $response->make(
-                    content: ['message' => 'Not Found.'],
-                    status:$e->getStatusCode(),
+                    ['message' => 'Not Found.'],
+                    $e->getStatusCode(),
                 );
             }
 
             if ($e instanceof MethodNotAllowedHttpException) {
                 return $response->make(
-                    content: ['message' => 'Method Not Allowed.'],
-                    status: $e->getStatusCode()
+                    ['message' => 'Method Not Allowed.'],
+                    $e->getStatusCode(),
                 );
             }
 
@@ -117,8 +116,8 @@ return Application::configure(basePath: dirname(__DIR__))
                 }
 
                 return $response->make(
-                    content: ['errors' => $errors],
-                    status: $e->status,
+                    ['errors' => $errors],
+                    $e->status,
                 );
             }
 

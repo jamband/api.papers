@@ -24,8 +24,8 @@ readonly class EnsureEmailIsVerified
 
         if (!$user || ($user instanceof MustVerifyEmail && !$user->hasVerifiedEmail())) {
             return $this->response->make(
-                content: ['message' => 'Your email address is not verified.'],
-                status: 409,
+                ['message' => 'Your email address is not verified.'],
+                409,
             );
         }
 
