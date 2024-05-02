@@ -7,7 +7,6 @@ namespace Tests\Feature\Groups\Papers;
 use App\Groups\Papers\Paper;
 use App\Groups\Papers\PaperResource;
 use App\Groups\Users\UserFactory;
-use Illuminate\Config\Repository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -17,7 +16,6 @@ class CreatePaperTest extends TestCase
 
     private UserFactory $userFactory;
     private Paper $paper;
-    private Repository $config;
 
     protected function setUp(): void
     {
@@ -25,7 +23,6 @@ class CreatePaperTest extends TestCase
 
         $this->userFactory = new UserFactory();
         $this->paper = new Paper();
-        $this->config = $this->app->make(Repository::class);
     }
 
     public function testVerifiedMiddleware(): void
@@ -56,7 +53,7 @@ class CreatePaperTest extends TestCase
                 'body' => 'body1',
             ])
             ->assertCreated()
-            ->assertHeader('Location', $this->config->get('app.url').'/papers/1');
+            ->assertHeader('Location', $this->app['config']['app']['url'].'/papers/1');
 
         /** @var Paper $paper */
         $paper = $this->paper::query()

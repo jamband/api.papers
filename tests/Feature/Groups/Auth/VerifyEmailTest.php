@@ -6,7 +6,6 @@ namespace Tests\Feature\Groups\Auth;
 
 use App\Groups\Users\UserFactory;
 use Carbon\Carbon;
-use Illuminate\Config\Repository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\UrlGenerator;
 use Tests\TestCase;
@@ -18,7 +17,6 @@ class VerifyEmailTest extends TestCase
     private UrlGenerator $url;
     private UserFactory $userFactory;
     private Carbon $carbon;
-    private Repository $config;
 
     protected function setUp(): void
     {
@@ -27,7 +25,6 @@ class VerifyEmailTest extends TestCase
         $this->url = $this->app->make(UrlGenerator::class);
         $this->userFactory = new UserFactory();
         $this->carbon = new Carbon();
-        $this->config = $this->app->make(Repository::class);
     }
 
     public function testAuthMiddleware(): void
@@ -88,7 +85,7 @@ class VerifyEmailTest extends TestCase
 
         $this->actingAs($user)
             ->get($verificationUrl)
-            ->assertRedirect($this->config->get('app.frontend_origin'));
+            ->assertRedirect($this->app['config']['app']['frontend_origin']);
     }
 
     public function testVerifyEmailWithUnverifiedUser(): void
@@ -107,7 +104,7 @@ class VerifyEmailTest extends TestCase
 
         $this->actingAs($user)
             ->get($verificationUrl)
-            ->assertRedirect($this->config->get('app.frontend_origin').'/?verified=1');
+            ->assertRedirect($this->app['config']['app']['frontend_origin'].'/?verified=1');
 
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
     }

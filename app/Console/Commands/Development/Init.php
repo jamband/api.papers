@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\Development;
 
-use Illuminate\Config\Repository;
 use Illuminate\Console\Command;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Foundation\Application;
 
 class Init extends Command
 {
@@ -15,15 +15,16 @@ class Init extends Command
 
     protected $description = 'Prepare the project for the development environment';
 
-    public function handle(
-        Filesystem $file,
-        Repository $config,
-    ): int {
-        $file->copy('.env.example', '.env');
-        $file->put($this->laravel->databasePath('app.db'), '');
+    public function handle(Filesystem $file): int
+    {
+        /** @var Application $app */
+        $app = $this->laravel;
 
-        $envFilename = $this->laravel->environmentFilePath();
-        $appKey = 'base64:'.base64_encode(Encrypter::generateKey($config->get('app.cipher')));
+        $file->copy('.env.example', '.env');
+        $file->put($app->databasePath('app.db'), '');
+
+        $envFilename = $app->environmentFilePath();
+        $appKey = 'base64:'.base64_encode(Encrypter::generateKey($app['config']['app']['cipher']));
 
         $data = $file->get($envFilename);
         $data = preg_replace('/__app_key__/', $appKey, $data);

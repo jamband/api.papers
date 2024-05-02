@@ -19,11 +19,8 @@ class CreateAdminUser extends Command
     private const ADMIN_USER_EMAIL = 'admin@example.com';
     private const ADMIN_USER_PASSWORD = 'adminadmin';
 
-    public function handle(
-        AdminUser $adminUser,
-        Carbon $carbon,
-        HashManager $hash,
-    ): int {
+    public function handle(AdminUser $adminUser, Carbon $carbon, HashManager $hash): int
+    {
         /** @var AdminUser $query */
         $query = $adminUser::query();
 

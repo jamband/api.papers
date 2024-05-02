@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Groups\Auth;
 
-use Illuminate\Config\Repository;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
@@ -12,14 +11,12 @@ use Tests\TestCase;
 class ResetPasswordRulesTest extends TestCase
 {
     private UrlGenerator $url;
-    private Repository $config;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->url = $this->app->make(UrlGenerator::class);
-        $this->config = $this->app->make(Repository::class);
     }
 
     /**
@@ -106,7 +103,7 @@ class ResetPasswordRulesTest extends TestCase
         ])
             ->assertJsonPath('errors.password', __('validation.min.string', [
                 'attribute' => 'password',
-                'min' => $this->config->get('auth.password_min_length'),
+                'min' => $this->app['config']['auth']['password_min_length'],
             ]));
     }
 }

@@ -5,26 +5,23 @@ declare(strict_types=1);
 namespace Tests\Feature\Groups\Site;
 
 use Carbon\Carbon;
-use Illuminate\Config\Repository;
 use Tests\TestCase;
 
 class CsrfCookieTest extends TestCase
 {
-    private Repository $config;
     private Carbon $carbon;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->config = $this->app->make(Repository::class);
         $this->carbon = new Carbon();
     }
 
     public function testAccessControlHeaders(): void
     {
         $this->get('/csrf-cookie')
-            ->assertHeader('access-control-allow-origin', $this->config->get('app.cors_origins'))
+            ->assertHeader('access-control-allow-origin', $this->app['config']['app']['frontend_origin'])
             ->assertHeader('access-control-allow-credentials', 'true');
     }
 
@@ -58,7 +55,7 @@ class CsrfCookieTest extends TestCase
         $this->assertCount(6, $sessionValues);
 
         $this->assertMatchesRegularExpression(
-            '/\A'.str_replace('.', '', strtolower($this->config->get('app.name'))).'_session=eyJpdiI.+\z/',
+            '/\A'.str_replace('.', '', strtolower($this->app['config']['app']['name'])).'_session=eyJpdiI.+\z/',
             $session
         );
 
@@ -78,7 +75,7 @@ class CsrfCookieTest extends TestCase
     private function expires(): string
     {
         return $this->carbon
-            ->addMinutes((int)$this->config->get('session.lifetime'))
+            ->addMinutes((int)$this->app['config']['session']['lifetime'])
             ->format('D, d M Y H:i:s').' GMT';
     }
 }

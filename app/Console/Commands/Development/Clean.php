@@ -20,9 +20,8 @@ class Clean extends Command
         'storage/logs/*',
     ];
 
-    public function handle(
-        PendingProcess $process,
-    ): int {
+    public function handle(PendingProcess $process): int
+    {
         $this->call('optimize:clear');
 
         $process->run('rm -rf '.implode(' ', self::FILES));

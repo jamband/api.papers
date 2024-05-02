@@ -19,11 +19,8 @@ class CreateUser extends Command
     private const USER_EMAIL = 'foo@example.com';
     private const USER_PASSWORD = 'foofoofoo';
 
-    public function handle(
-        User $user,
-        Carbon $carbon,
-        HashManager $hash,
-    ): int {
+    public function handle(User $user, Carbon $carbon, HashManager $hash): int
+    {
         /** @var User $query */
         $query = $user::query();
 

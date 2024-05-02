@@ -8,7 +8,6 @@ use App\Groups\Users\User;
 use App\Groups\Users\UserFactory;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Config\Repository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Hashing\HashManager;
 use Illuminate\Support\Facades\Event;
@@ -19,7 +18,6 @@ class RegisterTest extends TestCase
     use RefreshDatabase;
 
     private UserFactory $userFactory;
-    private Repository $config;
     private User $user;
     private Carbon $carbon;
     private HashManager $hash;
@@ -29,7 +27,6 @@ class RegisterTest extends TestCase
         parent::setUp();
 
         $this->userFactory = new UserFactory();
-        $this->config = $this->app->make(Repository::class);
         $this->user = new User();
         $this->carbon = new Carbon();
         $this->hash = $this->app->make(HashManager::class);
