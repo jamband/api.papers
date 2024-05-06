@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Foundation\Application;
+use Illuminate\Container\Container;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Exceptions\InvalidSignatureException;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 return function (Exceptions $exceptions) {
     $exceptions->render(function (Throwable $e, Request $request) {
         /** @var ResponseFactory $response */
-        $response = Application::getInstance()->make(ResponseFactory::class);
+        $response = Container::getInstance()->make(ResponseFactory::class);
 
         if (
             $e instanceof AuthenticationException &&
