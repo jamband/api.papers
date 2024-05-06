@@ -49,19 +49,19 @@ class RegisterRulesTest extends TestCase
 
     public function testNameMinStringRule(): void
     {
-        $this->request(['name' => str_repeat('a', $this->app['config']['auth']['name_min_length'] - 1)])
+        $this->request(['name' => str_repeat('a', $this->app['config']['auth.name_min_length'] - 1)])
             ->assertJsonPath('errors.name', __('validation.min.string', [
                 'attribute' => 'name',
-                'min' => $this->app['config']['auth']['name_min_length'],
+                'min' => $this->app['config']['auth.name_min_length'],
             ]));
     }
 
     public function testNameMaxStringRule(): void
     {
-        $this->request(['name' => str_repeat('a', $this->app['config']['auth']['name_max_length'] + 1)])
+        $this->request(['name' => str_repeat('a', $this->app['config']['auth.name_max_length'] + 1)])
             ->assertJsonPath('errors.name', __('validation.max.string', [
                 'attribute' => 'name',
-                'max' => $this->app['config']['auth']['name_max_length'],
+                'max' => $this->app['config']['auth.name_max_length'],
             ]));
     }
 
@@ -131,24 +131,24 @@ class RegisterRulesTest extends TestCase
     public function testPasswordMinStringRule(): void
     {
         $this->request([
-            'password' => str_repeat('a', $this->app['config']['auth']['password_min_length'] - 1),
-            'password_confirmation' => str_repeat('a', $this->app['config']['auth']['password_min_length'] - 1),
+            'password' => str_repeat('a', $this->app['config']['auth.password_min_length'] - 1),
+            'password_confirmation' => str_repeat('a', $this->app['config']['auth.password_min_length'] - 1),
         ])
             ->assertJsonPath('errors.password', __('validation.min.string', [
                 'attribute' => 'password',
-                'min' => $this->app['config']['auth']['password_min_length'],
+                'min' => $this->app['config']['auth.password_min_length'],
             ]));
     }
 
     public function testPasswordMaxStringRule(): void
     {
         $this->request([
-            'password' => str_repeat('a', $this->app['config']['auth']['password_max_length'] + 1),
-            'password_confirmation' => str_repeat('a', $this->app['config']['auth']['password_max_length'] + 1),
+            'password' => str_repeat('a', $this->app['config']['auth.password_max_length'] + 1),
+            'password_confirmation' => str_repeat('a', $this->app['config']['auth.password_max_length'] + 1),
         ])
             ->assertJsonPath('errors.password', __('validation.max.string', [
                 'attribute' => 'password',
-                'max' => $this->app['config']['auth']['password_max_length'],
+                'max' => $this->app['config']['auth.password_max_length'],
             ]));
     }
 }

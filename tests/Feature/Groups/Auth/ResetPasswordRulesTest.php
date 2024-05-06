@@ -103,7 +103,7 @@ class ResetPasswordRulesTest extends TestCase
         ])
             ->assertJsonPath('errors.password', __('validation.min.string', [
                 'attribute' => 'password',
-                'min' => $this->app['config']['auth']['password_min_length'],
+                'min' => $this->app['config']['auth.password_min_length'],
             ]));
     }
 }

@@ -85,7 +85,7 @@ class VerifyEmailTest extends TestCase
 
         $this->actingAs($user)
             ->get($verificationUrl)
-            ->assertRedirect($this->app['config']['app']['frontend_origin']);
+            ->assertRedirect($this->app['config']['app.frontend_origin']);
     }
 
     public function testVerifyEmailWithUnverifiedUser(): void
@@ -104,7 +104,7 @@ class VerifyEmailTest extends TestCase
 
         $this->actingAs($user)
             ->get($verificationUrl)
-            ->assertRedirect($this->app['config']['app']['frontend_origin'].'/?verified=1');
+            ->assertRedirect($this->app['config']['app.frontend_origin'].'/?verified=1');
 
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
     }

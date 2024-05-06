@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
             /** @var Application $app */
             $app = $this->app;
 
-            return $app['config']['app']['frontend_origin'].'/password-reset/'.$token.'?email='.
+            return $app['config']['app.frontend_origin'].'/password-reset/'.$token.'?email='.
                 $notifiable->getEmailForPasswordReset();
         });
     }

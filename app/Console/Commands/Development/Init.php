@@ -24,7 +24,7 @@ class Init extends Command
         $file->put($app->databasePath('app.db'), '');
 
         $envFilename = $app->environmentFilePath();
-        $appKey = 'base64:'.base64_encode(Encrypter::generateKey($app['config']['app']['cipher']));
+        $appKey = 'base64:'.base64_encode(Encrypter::generateKey($app['config']['app.cipher']));
 
         $data = $file->get($envFilename);
         $data = preg_replace('/__app_key__/', $appKey, $data);

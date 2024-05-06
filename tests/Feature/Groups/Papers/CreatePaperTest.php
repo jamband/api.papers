@@ -53,7 +53,7 @@ class CreatePaperTest extends TestCase
                 'body' => 'body1',
             ])
             ->assertCreated()
-            ->assertHeader('Location', $this->app['config']['app']['url'].'/papers/1');
+            ->assertHeader('Location', $this->app['config']['app.url'].'/papers/1');
 
         /** @var Paper $paper */
         $paper = $this->paper::query()
