@@ -32,7 +32,7 @@ class CreateUser extends Command
 
         $user->name = self::USER_NAME;
         $user->email = self::USER_EMAIL;
-        $user->email_verified_at = $carbon::now();
+        $user->email_verified_at = $carbon;
         $user->password = $hash->make(self::USER_PASSWORD);
         $user->save();
 
