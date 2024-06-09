@@ -22,6 +22,13 @@ class ForceJsonResponseTest extends TestCase
         $this->uri = '/testing-'.mb_strtolower(Str::random(10));
     }
 
+    protected function tearDown(): void
+    {
+        $this->artisan('view:clear');
+
+        parent::tearDown();
+    }
+
     public function testWithoutForceJsonResponseMiddleware(): void
     {
         $this->router->middleware('web')
