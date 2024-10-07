@@ -7,6 +7,7 @@ namespace Tests\Feature\Groups\Papers;
 use App\Groups\Papers\PaperFactory;
 use App\Groups\Users\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
@@ -27,6 +28,7 @@ class UpdatePaperRulesTest extends TestCase
 
     /**
      * @param array<string, mixed> $data
+     * @return TestResponse<Response>
      */
     protected function request(array $data): TestResponse
     {

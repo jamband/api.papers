@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Groups\Auth;
 
+use Illuminate\Http\Response;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
@@ -21,6 +22,7 @@ class ForgotPasswordRulesTest extends TestCase
 
     /**
      * @param array<string, mixed> $data
+     * @return TestResponse<Response>
      */
     protected function request(array $data): TestResponse
     {
