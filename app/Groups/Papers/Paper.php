@@ -23,8 +23,8 @@ class Paper extends Model
 {
     use PaperScope;
 
-    public const CREATED_AT_FORMAT = 'M jS Y, g:i a';
-    public const UPDATED_AT_FORMAT = self::CREATED_AT_FORMAT;
+    public const string CREATED_AT_FORMAT = 'M jS Y, g:i a';
+    public const string UPDATED_AT_FORMAT = self::CREATED_AT_FORMAT;
 
     public function createdAt(): Attribute
     {

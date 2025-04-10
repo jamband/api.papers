@@ -15,9 +15,9 @@ class CreateUser extends Command
 
     protected $description = 'Create new user';
 
-    private const USER_NAME = 'foo';
-    private const USER_EMAIL = 'foo@example.com';
-    private const USER_PASSWORD = 'foofoofoo';
+    private const string USER_NAME = 'foo';
+    private const string USER_EMAIL = 'foo@example.com';
+    private const string USER_PASSWORD = 'foofoofoo';
 
     public function handle(User $user, Carbon $carbon, HashManager $hash): int
     {

@@ -14,7 +14,7 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
-    private const MAX_ATTEMPTS = 5;
+    private const int MAX_ATTEMPTS = 5;
 
     private AuthManager $auth;
     private RateLimiter $rateLimiter;

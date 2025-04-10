@@ -15,9 +15,9 @@ class CreateAdminUser extends Command
 
     protected $description = 'Create an admin user';
 
-    private const ADMIN_USER_NAME = 'admin';
-    private const ADMIN_USER_EMAIL = 'admin@example.com';
-    private const ADMIN_USER_PASSWORD = 'adminadmin';
+    private const string ADMIN_USER_NAME = 'admin';
+    private const string ADMIN_USER_EMAIL = 'admin@example.com';
+    private const string ADMIN_USER_PASSWORD = 'adminadmin';
 
     public function handle(AdminUser $adminUser, Carbon $carbon, HashManager $hash): int
     {

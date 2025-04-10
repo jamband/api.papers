@@ -37,9 +37,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public const CREATED_AT_FORMAT = 'M jS Y, g:i:s a';
-    public const UPDATED_AT_FORMAT = self::CREATED_AT_FORMAT;
-    public const EMAIL_VERIFIED_AT_FORMAT = self::CREATED_AT_FORMAT;
+    public const string CREATED_AT_FORMAT = 'M jS Y, g:i:s a';
+    public const string UPDATED_AT_FORMAT = self::CREATED_AT_FORMAT;
+    public const string EMAIL_VERIFIED_AT_FORMAT = self::CREATED_AT_FORMAT;
 
     public function emailVerifiedAt(): Attribute
     {
