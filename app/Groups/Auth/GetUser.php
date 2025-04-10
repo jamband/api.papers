@@ -7,6 +7,7 @@ namespace App\Groups\Auth;
 use App\Groups\Admin\AdminUser;
 use App\Groups\Users\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Routing\Controller;
 
 class GetUser extends Controller
@@ -17,13 +18,13 @@ class GetUser extends Controller
         $this->middleware('auth:web,admin');
     }
 
-    public function __invoke(Request $request): array|AuthResource
+    public function __invoke(Request $request): array|JsonResource
     {
         /** @var AdminUser|User $user */
         $user = $request->user();
 
         return $user instanceof $this->adminUser
             ? ['role' => 'admin']
-            : new AuthResource($user);
+            : $user->toResource(AuthResource::class);
     }
 }

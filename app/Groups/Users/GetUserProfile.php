@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Groups\Users;
 
 use Illuminate\Auth\AuthManager;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Routing\Controller;
 
 class GetUserProfile extends Controller
@@ -16,8 +17,11 @@ class GetUserProfile extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(): UserProfileResource
+    public function __invoke(): JsonResource
     {
-        return new UserProfileResource($this->auth->user());
+        /** @var User $user */
+        $user = $this->auth->user();
+
+        return $user->toResource(UserProfileResource::class);
     }
 }

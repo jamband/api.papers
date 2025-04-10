@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Groups\Papers;
 
 use Illuminate\Auth\AuthManager;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Routing\Controller;
 
 class GetPapers extends Controller
@@ -17,15 +17,14 @@ class GetPapers extends Controller
         $this->middleware('verified');
         $this->middleware('auth');
     }
-    public function __invoke(): AnonymousResourceCollection
+    public function __invoke(): ResourceCollection
     {
         /** @var Paper $paper */
         $paper = $this->paper::query();
 
-        return PaperResource::collection(
-            $paper->byUserId($this->auth->id())
-                ->latest()
-                ->get()
-        );
+        return $paper->byUserId($this->auth->id())
+            ->latest()
+            ->get()
+            ->toResourceCollection(PaperResource::class);
     }
 }

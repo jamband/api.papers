@@ -6,7 +6,7 @@ namespace App\Groups\Admin;
 
 use App\Groups\Users\User;
 use App\Groups\Users\UserResource;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Routing\Controller;
 
 class GetUsers extends Controller
@@ -17,12 +17,11 @@ class GetUsers extends Controller
         $this->middleware('auth:admin');
     }
 
-    public function __invoke(): AnonymousResourceCollection
+    public function __invoke(): ResourceCollection
     {
-        return UserResource::collection(
-            $this->user::query()
-                ->latest()
-                ->get()
-        );
+        return $this->user::query()
+            ->latest()
+            ->get()
+            ->toResourceCollection(UserResource::class);
     }
 }

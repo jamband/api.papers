@@ -31,7 +31,7 @@ class CreatePaper extends Controller
         $this->paper->body = $data['body'];
         $this->paper->save();
 
-        return $this->response->make(new PaperResource($this->paper), 201)
+        return $this->response->make($this->paper->toResource(PaperResource::class), 201)
             ->header('Location', $this->url->to('/papers/'.$this->paper->id));
     }
 }

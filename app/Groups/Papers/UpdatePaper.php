@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Groups\Papers;
 
 use Illuminate\Auth\AuthManager;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Routing\Controller;
 
 class UpdatePaper extends Controller
@@ -17,7 +18,7 @@ class UpdatePaper extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(UpdatePaperRequest $request, int $id): PaperResource
+    public function __invoke(UpdatePaperRequest $request, int $id): JsonResource
     {
         $data = $request->validated();
 
@@ -31,6 +32,6 @@ class UpdatePaper extends Controller
         $paper->body = $data['body'];
         $paper->save();
 
-        return new PaperResource($paper);
+        return $paper->toResource(PaperResource::class);
     }
 }
