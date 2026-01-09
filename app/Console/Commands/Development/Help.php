@@ -15,8 +15,8 @@ class Help extends Command
     public function handle(): int
     {
         $this->table(['Requirements'], [
-            ['PHP', '>= 8.3'],
-            ['Composer', '>= 2.2.0'],
+            ['PHP', '>= 8.4'],
+            ['Composer', '>= 2.8.1'],
             ['SQLite', '3'],
             ['Mailpit', 'https://github.com/axllent/mailpit'],
         ]);

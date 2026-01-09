@@ -4,8 +4,8 @@ api.papers is a project created as a document for cookie-based session authentic
 
 ## Requirements for development environment
 
-- PHP >= 8.3
-- Composer >= 2.2.0
+- PHP >= 8.4
+- Composer >= 2.8.1
 - SQLite 3
 - [Mailpit](https://github.com/axllent/mailpit)
 
