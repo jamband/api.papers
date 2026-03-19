@@ -59,7 +59,7 @@ class CreatePaperTest extends TestCase
         $paper = $this->paper::query()
             ->find(1);
 
-        $response->assertExactJson((new PaperResource($paper))->jsonSerialize());
+        $response->assertExactJson(new PaperResource($paper)->jsonSerialize());
 
         $this->assertDatabaseCount($paper::class, 1)
             ->assertDatabaseHas($paper::class, [

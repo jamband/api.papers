@@ -46,7 +46,7 @@ class GetUserTest extends TestCase
         $this->actingAs($user)
             ->get('/user')
             ->assertOk()
-            ->assertExactJson((new AuthResource($user))->jsonSerialize());
+            ->assertExactJson(new AuthResource($user)->jsonSerialize());
     }
 
     public function testGetUserAsAdministrator(): void

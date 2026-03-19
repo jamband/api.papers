@@ -81,6 +81,6 @@ class GetPaperTest extends TestCase
         $this->actingAs($user)
             ->get('/papers/'.$paper->id)
             ->assertOk()
-            ->assertExactJson((new PaperResource($paper))->jsonSerialize());
+            ->assertExactJson(new PaperResource($paper)->jsonSerialize());
     }
 }

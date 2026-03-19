@@ -23,7 +23,6 @@ class AdminUserScopeTest extends TestCase
 
         $this->adminUser = new AdminUser();
         $this->adminUserFactory = new AdminUserFactory();
-
     }
 
     public function testInvalidByEmail(): void
@@ -46,7 +45,6 @@ class AdminUserScopeTest extends TestCase
                 ['email' => 'baz@example.com'],
             ))
             ->create();
-
 
         $this->assertSame(1, $this->adminUser->byEmail($adminUser->email)->count());
     }
