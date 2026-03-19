@@ -11,9 +11,9 @@ use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 use Illuminate\Foundation\Http\Middleware\TrimStrings;
-use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Http\Middleware\ValidatePostSize;
 use Illuminate\Session\Middleware\AuthenticateSession;
@@ -36,7 +36,7 @@ return function (Middleware $middleware) {
         AddQueuedCookiesToResponse::class,
         StartSession::class,
         AuthenticateSession::class,
-        ValidateCsrfToken::class,
+        PreventRequestForgery::class,
     ]);
 
     $middleware->alias([
