@@ -10,19 +10,19 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Hashing\HashManager;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Routing\ResponseFactory;
 
-class Register extends Controller
+#[Middleware('guest')]
+readonly class Register
 {
     public function __construct(
-        private readonly User $user,
-        private readonly HashManager $hash,
-        private readonly Dispatcher $event,
-        private readonly AuthManager $auth,
-        private readonly ResponseFactory $response,
+        private User $user,
+        private HashManager $hash,
+        private Dispatcher $event,
+        private AuthManager $auth,
+        private ResponseFactory $response,
     ) {
-        $this->middleware('guest');
     }
 
     public function __invoke(RegisterRequest $request): Response

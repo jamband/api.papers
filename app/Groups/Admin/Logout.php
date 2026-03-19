@@ -7,16 +7,16 @@ namespace App\Groups\Admin;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Routing\ResponseFactory;
 
-class Logout extends Controller
+#[Middleware('auth:admin')]
+readonly class Logout
 {
     public function __construct(
-        private readonly AuthManager $auth,
-        private readonly ResponseFactory $response,
+        private AuthManager $auth,
+        private ResponseFactory $response,
     ) {
-        $this->middleware('auth:admin');
     }
 
     public function __invoke(Request $request): Response

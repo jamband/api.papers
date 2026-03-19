@@ -6,15 +6,15 @@ namespace App\Console\Commands\Development;
 
 use App\Groups\Users\User;
 use Carbon\Carbon;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Hashing\HashManager;
 
+#[Signature('dev:create-user')]
+#[Description('Create new user')]
 class CreateUser extends Command
 {
-    protected $signature = 'dev:create-user';
-
-    protected $description = 'Create new user';
-
     private const string USER_NAME = 'foo';
     private const string USER_EMAIL = 'foo@example.com';
     private const string USER_PASSWORD = 'foofoofoo';

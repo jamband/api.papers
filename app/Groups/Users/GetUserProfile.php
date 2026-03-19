@@ -6,15 +6,15 @@ namespace App\Groups\Users;
 
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
-class GetUserProfile extends Controller
+#[Middleware('verified')]
+#[Middleware('auth')]
+readonly class GetUserProfile
 {
     public function __construct(
-        private readonly AuthManager $auth,
+        private AuthManager $auth,
     ) {
-        $this->middleware('verified');
-        $this->middleware('auth');
     }
 
     public function __invoke(): JsonResource

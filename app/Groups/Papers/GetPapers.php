@@ -6,17 +6,18 @@ namespace App\Groups\Papers;
 
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
-class GetPapers extends Controller
+#[Middleware('verified')]
+#[Middleware('auth')]
+readonly class GetPapers
 {
     public function __construct(
-        private readonly Paper $paper,
-        private readonly AuthManager $auth,
+        private Paper $paper,
+        private AuthManager $auth,
     ) {
-        $this->middleware('verified');
-        $this->middleware('auth');
     }
+
     public function __invoke(): ResourceCollection
     {
         /** @var Paper $paper */

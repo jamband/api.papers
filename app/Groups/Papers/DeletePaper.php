@@ -6,18 +6,18 @@ namespace App\Groups\Papers;
 
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Routing\ResponseFactory;
 
-class DeletePaper extends Controller
+#[Middleware('verified')]
+#[Middleware('auth')]
+readonly class DeletePaper
 {
     public function __construct(
-        private readonly Paper $paper,
-        private readonly AuthManager $auth,
-        private readonly ResponseFactory $response,
+        private Paper $paper,
+        private AuthManager $auth,
+        private ResponseFactory $response,
     ) {
-        $this->middleware('verified');
-        $this->middleware('auth');
     }
 
     public function __invoke(int $id): Response

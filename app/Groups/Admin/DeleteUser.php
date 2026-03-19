@@ -6,16 +6,16 @@ namespace App\Groups\Admin;
 
 use App\Groups\Users\User;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Routing\ResponseFactory;
 
-class DeleteUser extends Controller
+#[Middleware('auth:admin')]
+readonly class DeleteUser
 {
     public function __construct(
-        private readonly User $user,
-        private readonly ResponseFactory $response,
+        private User $user,
+        private ResponseFactory $response,
     ) {
-        $this->middleware('auth:admin');
     }
 
     public function __invoke(int $id): Response

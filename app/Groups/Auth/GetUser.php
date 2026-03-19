@@ -8,14 +8,14 @@ use App\Groups\Admin\AdminUser;
 use App\Groups\Users\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
-class GetUser extends Controller
+#[Middleware('auth:web,admin')]
+readonly class GetUser
 {
     public function __construct(
-        private readonly AdminUser $adminUser,
+        private AdminUser $adminUser,
     ) {
-        $this->middleware('auth:web,admin');
     }
 
     public function __invoke(Request $request): array|JsonResource

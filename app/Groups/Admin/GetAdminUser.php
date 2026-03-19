@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Groups\Admin;
 
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
-class GetAdminUser extends Controller
+#[Middleware('auth:admin')]
+readonly class GetAdminUser
 {
     public function __construct()
     {
-        $this->middleware('auth:admin');
     }
 
     public function __invoke(): array

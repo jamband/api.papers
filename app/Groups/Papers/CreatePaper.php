@@ -6,20 +6,20 @@ namespace App\Groups\Papers;
 
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Routing\UrlGenerator;
 
-class CreatePaper extends Controller
+#[Middleware('verified')]
+#[Middleware('auth')]
+readonly class CreatePaper
 {
     public function __construct(
-        private readonly Paper $paper,
-        private readonly AuthManager $auth,
-        private readonly ResponseFactory $response,
-        private readonly UrlGenerator $url,
+        private Paper $paper,
+        private AuthManager $auth,
+        private ResponseFactory $response,
+        private UrlGenerator $url,
     ) {
-        $this->middleware('verified');
-        $this->middleware('auth');
     }
 
     public function __invoke(CreatePaperRequest $request): Response

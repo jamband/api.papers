@@ -6,16 +6,16 @@ namespace App\Groups\Papers;
 
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
-class GetPaper extends Controller
+#[Middleware('verified')]
+#[Middleware('auth')]
+readonly class GetPaper
 {
     public function __construct(
-        private readonly Paper $paper,
-        private readonly AuthManager $auth,
+        private Paper $paper,
+        private AuthManager $auth,
     ) {
-        $this->middleware('verified');
-        $this->middleware('auth');
     }
 
     public function __invoke(int $id): JsonResource

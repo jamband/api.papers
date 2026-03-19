@@ -10,20 +10,20 @@ use Illuminate\Auth\Passwords\PasswordBroker;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Hashing\HashManager;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-class ResetPassword extends Controller
+#[Middleware('guest')]
+readonly class ResetPassword
 {
     public function __construct(
-        private readonly PasswordBroker $password,
-        private readonly HashManager $hash,
-        private readonly Dispatcher $event,
-        private readonly ResponseFactory $response,
+        private PasswordBroker $password,
+        private HashManager $hash,
+        private Dispatcher $event,
+        private ResponseFactory $response,
     ) {
-        $this->middleware('guest');
     }
 
     public function __invoke(ResetPasswordRequest $request): Response

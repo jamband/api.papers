@@ -7,14 +7,14 @@ namespace App\Groups\Admin;
 use App\Groups\Users\User;
 use App\Groups\Users\UserResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 
-class GetUsers extends Controller
+#[Middleware('auth:admin')]
+readonly class GetUsers
 {
     public function __construct(
-        private readonly User $user,
+        private User $user,
     ) {
-        $this->middleware('auth:admin');
     }
 
     public function __invoke(): ResourceCollection

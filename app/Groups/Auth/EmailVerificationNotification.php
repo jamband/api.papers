@@ -7,16 +7,16 @@ namespace App\Groups\Auth;
 use App\Groups\Users\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Routing\ResponseFactory;
 
-class EmailVerificationNotification extends Controller
+#[Middleware('auth')]
+#[Middleware('throttle:6,1')]
+readonly class EmailVerificationNotification
 {
     public function __construct(
-        private readonly ResponseFactory $response,
+        private ResponseFactory $response,
     ) {
-        $this->middleware('auth');
-        $this->middleware('throttle:6,1');
     }
 
     public function __invoke(Request $request): Response

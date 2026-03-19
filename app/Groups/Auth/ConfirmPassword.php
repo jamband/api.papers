@@ -8,19 +8,19 @@ use App\Groups\Users\User;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Validation\ValidationException;
 
-class ConfirmPassword extends Controller
+#[Middleware('verified')]
+#[Middleware('auth')]
+#[Middleware('throttle:6,1')]
+readonly class ConfirmPassword
 {
     public function __construct(
-        private readonly AuthManager $auth,
-        private readonly ResponseFactory $response,
+        private AuthManager $auth,
+        private ResponseFactory $response,
     ) {
-        $this->middleware('verified');
-        $this->middleware('auth');
-        $this->middleware('throttle:6,1');
     }
 
     public function __invoke(Request $request): Response
